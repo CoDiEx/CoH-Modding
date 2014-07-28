@@ -1,0 +1,25 @@
+function mp_setselectiontypenil()
+
+	for i=1, World_GetPlayerCount() do
+		
+		local p = World_GetPlayerAt(i);
+		
+		local _sg_temp = SGroup_CreateIfNotFound("_sg_temp");
+		local _eg_all = EGroup_CreateIfNotFound("_eg_all");
+		local upg = BP_GetUpgradeBlueprint("upgrade{Vehicle_Destroy_Neutral_Selection.lua");
+		local sg_temp1 = SGroup_CreateIfNotFound("sg_temp1");
+		
+		Player_GetAll(p, _sg_temp, _eg_all);
+		
+		local eachupgrade = function(gid, idx, sid)
+			if (Squad_HasUpgrade(sid, upg)) then
+				SGroup_Add(sg_temp1, sid);
+			end
+		end
+		
+		SGroup_ForEach(_sg_temp, eachupgrade);
+		SGroup_SetSelectable(sg_temp1, false);
+		
+	end
+
+end
