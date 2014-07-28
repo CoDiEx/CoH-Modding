@@ -1,0 +1,266 @@
+local AtmoshpereFolder = "data:art/scenarios/presets/atmosphere/";
+season = {};
+season.s = nil;
+season.currentseason = {};
+season.DAWN = 1;
+season.DAY = 2;
+season.EVENING = 3;
+season.NIGHT = 4;
+
+function season.init()
+	
+	if (season.s == nil) then
+		season.s = "summer";
+	end
+	
+	if (season.s == "fall") then
+		
+		-- setting tempatures
+		season.currentseason.maxtempature = 10;
+		season.currentseason.mintempature = (-10);
+		season.currentseason.currenttempature = World_GetRand(-10 ,10);
+		-- setting chance of weather types
+		season.currentseason.chanceofsnow = 0; -- 0 = none \ 100 = big chance
+		season.currentseason.chanceofrain = 80; -- 0 = none \ 100 = big chance
+		
+	elseif (season.s == "spring") then
+		
+		-- setting tempatures
+		season.currentseason.maxtempature = 20;
+		season.currentseason.mintempature = 0;
+		season.currentseason.currenttempature = World_GetRand(0 ,20);
+		-- setting chance of weather types
+		season.currentseason.chanceofsnow = 0; -- 0 = none \ 100 = big chance
+		season.currentseason.chanceofrain = 50; -- 0 = none \ 100 = big chance
+		
+	elseif (season.s == "summer") then
+		
+		-- setting tempatures
+		season.currentseason.maxtempature = 30;
+		season.currentseason.mintempature = 10;
+		season.currentseason.currenttempature = World_GetRand(10 ,30);
+		-- setting chance of weather types
+		season.currentseason.chanceofsnow = 0; -- 0 = none \ 100 = big chance
+		season.currentseason.chanceofrain = 40; -- 0 = none \ 100 = big chance
+		
+	end
+
+	-- setting the Time of day
+	season.Time = season.EVENING; -- this is what makes the most sense
+	-- some standard weather things
+	season.snowtempature = (-10);
+
+	-- starting the interval -- once function is called we calculate temperatures and set a new atmosphere if needed
+	Rule_AddInterval(CalculateTempature, 6 * 60); -- we also change time of day here
+
+	--TODO: add winter season
+
+end
+
+local curreantatmos = nil;
+
+function CalculateTempature()
+
+	local randomint = World_GetRand(0, 100) -- our random thing
+
+	if (randomint < season.currentseason.currenttempature) then
+		season.currentseason.currenttempature = season.currentseason.currenttempature-1; -- this way we can have the almost same temperature through the game
+		if (season.currentseason.chanceofsnow == 0) then -- not winter
+			local DoRain = World_GetRand(0, 100);
+			if (DoRain < season.currentseason.chanceofrain) then
+				curreantatmos = GetAtmosphere("RAIN");
+				Game_LoadAtmosphere(curreantatmos, 3 * 60);
+			else
+				curreantatmos = GetAtmosphere(nil);
+				Game_LoadAtmosphere(curreantatmos, 3 * 60);
+			end
+		else -- winter
+			if (season.currentseason.currenttempature < season.snowtempature) then -- we can actually make it snow
+				curreantatmos = GetAtmosphere("SNOW");
+				Game_LoadAtmosphere(curreantatmos, 3 * 60);
+			else
+				curreantatmos = GetAtmosphere(nil);
+				Game_LoadAtmosphere(curreantatmos, 3 * 60);
+			end
+		end
+	elseif (randomint > season.currentseason.currenttempature) then
+		season.currentseason.currenttempature = season.currentseason.currenttempature+1; -- this way we can have the almost same tempature through the game
+		if (season.currentseason.chanceofsnow == 0) then -- not winter
+			local DoRain = World_GetRand(0, 100);
+			if (DoRain < season.currentseason.chanceofrain) then
+				curreantatmos = GetAtmosphere("RAIN");
+				Game_LoadAtmosphere(curreantatmos, 3 * 60);
+			else
+				curreantatmos = GetAtmosphere(nil);
+				Game_LoadAtmosphere(curreantatmos, 3 * 60);
+			end
+		else -- winter
+			if (season.currentseason.currenttempature < season.snowtempature) then -- we can actually make it snow
+				curreantatmos = GetAtmosphere("SNOW");
+				Game_LoadAtmosphere(curreantatmos, 3 * 60);
+			else
+				curreantatmos = GetAtmosphere(nil);
+				Game_LoadAtmosphere(curreantatmos, 3 * 60);
+			end
+		end
+	end
+
+	if (season.Time < 4) then
+		season.Time = season.Time + 1
+	else
+		season.Time = 1;
+	end
+
+end
+
+season.AtmosphereTable = {}
+season.AtmosphereTable.Snow = {}
+season.AtmosphereTable.normal = {}
+season.AtmosphereTable.rain = {}
+
+season.AtmosphereTable.Snow.DAWN = {
+	"winter/WINTER_DAY_SNOWING.aps",
+	"winter/WINTER_DAY_SNOWING.aps",
+}
+season.AtmosphereTable.Snow.DAY = {
+	"winter/WINTER_DAY_SNOWING.aps",
+	"winter/WINTER_DAY_SNOWING.aps",
+}
+season.AtmosphereTable.Snow.EVENING = {
+	"winter/WINTER_NIGHT_SNOWING.aps",
+	"winter/WINTER_NIGHT_SNOWING.aps",
+}
+season.AtmosphereTable.Snow.NIGHT = {
+	"winter/WINTER_NIGHT_SNOWING.aps",
+	"winter/WINTER_NIGHT_SNOWING.aps",
+}
+season.AtmosphereTable.rain.DAWN = {
+	"cxp2_oosterbeek_daybreak_stormyrain_00.aps",
+	"mp_hinderdam_rainy_00.aps",
+	"mp_st_hilaire_raining_00.aps",
+}
+season.AtmosphereTable.rain.DAY = {
+	"cxp2_oosterbeek_daybreak_rain_00.aps",
+	"mp_6p_close_river_combat_stormy_00.aps",
+	"mp_coastal_harbour_rainy_00.aps",
+	"mp_hinderdam_rainy_00.aps",
+}
+season.AtmosphereTable.rain.EVENING = {
+	"cxp2_best_night_01_wetmap.aps",
+	"mp_loraineredux_rainy_00.aps",
+	"mp_st_hilaire_raining_00.aps",
+}
+season.AtmosphereTable.rain.NIGHT = {
+	"cxp1_caen_night_00.aps",
+	"cxp1_hill112_night_01.aps",
+	"cxp2_hells_highway_stormy_00.aps",
+	"mp_bernieres-sure-mer_stormy_00_demo.aps",
+	"mp_loraineredux_rainy_00.aps",
+}
+season.AtmosphereTable.normal.DAWN = {
+	"coho_beach_assault_dawn.aps",
+	"coho_cemetery_morning.aps",
+	"coho_domination_sunset.aps",
+	"coho_harbourbattle_morning.aps",
+	"coho_refinery_dawn.aps",
+	"cxp1_caen_dawn_00.aps",
+	"cxp1_caen_dawn_01.aps",
+	"cxp1_caen_dawn_02.aps",
+	"cxp1_caen_dawn_03.aps",
+	"cxp2_oosterbeek_predawn_00.aps",
+	"mp_4p_linden_dawn_00.aps",
+	"mp_bernieres-sure-mer_dawn_00_nowetmap.aps",
+	"mp_docks01.aps",
+	"mp_firefight.aps",
+	"mp_semois.aps",
+}
+season.AtmosphereTable.normal.DAY = {
+	"best_local.aps",
+	"caen_new_teal.aps",
+	"coho_achelous_river_day.aps",
+	"coho_beach_assault_day.aps",
+	"coho_citybattle_afternoon.aps",
+	"coho_harbourbattle_day.aps",
+	"coho_invasion_day.aps",
+	"coho_invasion_morning.aps",
+	"coho_irreville_afternoon.aps",
+	"coho_swamp_afternoon.aps",
+	"coho_swamp_day.aps",
+	"cxp1_authie_lighting.aps",
+	"goodwood.aps",
+	"mp_6p_close_river_combat_hazy_00.aps",
+	"mp_bernieres-sure-mer.aps",
+	"mp_firefight.aps",
+	"mp_stream_crossing.aps",
+}
+season.AtmosphereTable.normal.EVENING = {
+	"coho_achelous_river_dusk.aps",
+	"coho_compound_dusk.aps",
+	"coho_swamp_afternoon.aps",
+	"coho_swamp_dusk,aps",
+	"cxp2_best_night_00.aps",
+	"cxp2_hells_highway_dusk_00.aps",
+	"cxp2_oosterbeek_predawn_00.aps",
+	"mp_2p_best_no_rain_00.aps",
+	"mp_2p_circle_wall_00.aps",
+	"mp_4p_wolfheze_dusknight_00.aps",
+	"mp_angoville_farms_dusk_00.aps",
+	"mp_loraineredux.aps",
+}
+season.AtmosphereTable.normal.NIGHT = {
+	"coho_cemetery_night.aps",
+	"coho_compound_night.aps",
+	"cxp1_carpiquet_night_00.aps",
+	"cxp1_carpiquet_night_01.aps",
+	"cxp2_oosterbeek_night_01.aps",
+	"mp_4p_bedum_night_00.aps",
+	"mp_docks01.aps",
+	"mp_loraineredux.aps",
+	"n13_01_m13_lighting.aps",
+}
+
+function GetAtmosphere(weather)
+
+	if (weather == "SNOW") then -- its from the snow table we have to take from
+		
+		if (season.Time == season.DAWN) then
+			return AtmoshpereFolder ..season.AtmosphereTable.Snow.DAWN[World_GetRand(1, #season.AtmosphereTable.Snow.DAWN)];
+		elseif (season.Time == season.DAY) then
+			return AtmoshpereFolder ..season.AtmosphereTable.Snow.DAY[World_GetRand(1, #season.AtmosphereTable.Snow.DAY)];
+		elseif (season.Time == season.EVENING) then
+			return AtmoshpereFolder ..season.AtmosphereTable.Snow.EVENING[World_GetRand(1, #season.AtmosphereTable.Snow.EVENING)];
+		elseif (season.Time == season.NIGHT) then
+			return AtmoshpereFolder ..season.AtmosphereTable.Snow.NIGHT[World_GetRand(1, #season.AtmosphereTable.Snow.NIGHT)];
+		end
+		
+	elseif (weather == "RAIN") then
+		
+		if (season.Time == season.DAWN) then
+			return AtmoshpereFolder ..season.AtmosphereTable.rain.DAWN[World_GetRand(1, #season.AtmosphereTable.rain.DAWN)];
+		elseif (season.Time == season.DAY) then
+			return AtmoshpereFolder ..season.AtmosphereTable.rain.DAY[World_GetRand(1, #season.AtmosphereTable.rain.DAY)];
+		elseif (season.Time == season.EVENING) then
+			return AtmoshpereFolder ..season.AtmosphereTable.rain.EVENING[World_GetRand(1, #season.AtmosphereTable.rain.EVENING)];
+		elseif (season.Time == season.NIGHT) then
+			return AtmoshpereFolder ..season.AtmosphereTable.rain.NIGHT[World_GetRand(1, #season.AtmosphereTable.rain.NIGHT)];
+		end
+		
+	elseif (weather == nil) then
+		
+		if (season.Time == season.DAWN) then
+			return AtmoshpereFolder ..season.AtmosphereTable.normal.DAWN[World_GetRand(1, #season.AtmosphereTable.normal.DAWN)];
+		elseif (season.Time == season.DAY) then
+			return AtmoshpereFolder ..season.AtmosphereTable.normal.DAY[World_GetRand(1, #season.AtmosphereTable.normal.DAY)];
+		elseif (season.Time == season.EVENING) then
+			return AtmoshpereFolder ..season.AtmosphereTable.normal.EVENING[World_GetRand(1, #season.AtmosphereTable.normal.EVENING)];
+		elseif (season.Time == season.NIGHT) then
+			return AtmoshpereFolder ..season.AtmosphereTable.normal.NIGHT[World_GetRand(1, #season.AtmosphereTable.normal.NIGHT)];
+		end
+		
+	end
+
+end
+
+function GetCuurentAtmposphere()
+	return curreantatmos;
+end
