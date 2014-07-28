@@ -18,7 +18,12 @@ function mp_setselectiontypenil()
 		end
 		
 		SGroup_ForEach(_sg_temp, eachupgrade);
-		SGroup_SetSelectable(sg_temp1, false);
+		
+		if (SGroup_Count(sg_temp1) > 0) then
+		
+			SGroup_SetSelectable(sg_temp1, false);
+			
+		end
 		
 	end
 
