@@ -10,6 +10,6 @@ function m_recapradio()
 	Util_CreateSquads(player3, sg_temp, BP_GetSquadBlueprint(bp), RandMArker, nil, 1, nil, false, nil, nil, nil);
 	SGroup_IncreaseVeterancyRank(sg_temp, World_GetRand(0, 3), true);
 
-  SGroup_Clear(sg_temp);
+  	SGroup_Clear(sg_temp);
 
 end
