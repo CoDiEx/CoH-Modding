@@ -1,6 +1,6 @@
 t_infantry = {"panzer_grenadier_squad_mp", "stormtrooper_squad_mp", "grenadier_squad_mp"};
 
-function m_recapradio()
+function m_spawnrandomsquad()
 	
 	local sg_temp = SGroup_CreateIfNotFound("sg_temp");
 	local Markers = {mkr_german_bonus_spawner01, mkr_german_bonus_spawner02, mkr_german_tank_spawner};
