@@ -30,6 +30,8 @@ function Objective_MultipleCaptureCounterTemplate_Init() -- Initialise
                
         }
  
+        Objective_Register(OBJ_CAPS);
+ 
 end
  
 function Checker() -- call this with an interval
