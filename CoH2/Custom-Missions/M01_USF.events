@@ -1,0 +1,134 @@
+EVENTS = {}
+
+EVENTS.INTRO = function()
+	CTRL.Actor_PlaySpeech(ACTOR.American_Major_01, "$08a0ac9c7e6144909909a02d533ce8aa:41");
+	CTRL.WAIT();
+	CTRL.Actor_PlaySpeech(ACTOR.American_Major_01, "$08a0ac9c7e6144909909a02d533ce8aa:42");
+	CTRL.WAIT();
+	CTRL.Actor_PlaySpeech(ACTOR.American_Major_01, "$08a0ac9c7e6144909909a02d533ce8aa:43");
+	CTRL.WAIT();
+	CTRL.Actor_PlaySpeech(ACTOR.American_Major_01, "$08a0ac9c7e6144909909a02d533ce8aa:44");
+	CTRL.WAIT();
+end
+
+EVENTS.ARTY_CORRECT = function()
+	CTRL.Actor_PlaySpeech(ACTOR.American_Major_01, "$08a0ac9c7e6144909909a02d533ce8aa:45");
+	CTRL.WAIT();
+	CTRL.Actor_PlaySpeech(ACTOR.American_Major_01, "$08a0ac9c7e6144909909a02d533ce8aa:46");
+	CTRL.WAIT();
+end
+
+EVENTS.ARTY_WRONG = function()
+	CTRL.Actor_PlaySpeech(ACTOR.American_Major_01, "$08a0ac9c7e6144909909a02d533ce8aa:47");
+	CTRL.WAIT();
+end
+
+EVENTS.TANKSDONE = function()
+	CTRL.Actor_PlaySpeech(ACTOR.American_Major_01, "$08a0ac9c7e6144909909a02d533ce8aa:48");
+	CTRL.WAIT();
+	CTRL.Actor_PlaySpeech(ACTOR.American_Major_01, "$08a0ac9c7e6144909909a02d533ce8aa:49");
+	CTRL.WAIT();
+	CTRL.Actor_PlaySpeech(ACTOR.American_Major_01, "$08a0ac9c7e6144909909a02d533ce8aa:50");
+	CTRL.WAIT();
+end
+
+EVENTS.TIGER_WARNING = function()
+	CTRL.Actor_PlaySpeech(ACTOR.American_Riflemen_01, "$08a0ac9c7e6144909909a02d533ce8aa:51");
+	CTRL.WAIT();
+end
+
+EVENTS.TIGER_DONE = function()
+	CTRL.Actor_PlaySpeech(ACTOR.American_Riflemen_01, "$08a0ac9c7e6144909909a02d533ce8aa:54");
+	CTRL.WAIT();
+end
+
+EVENTS.CAPSOUTHNORTH = function()
+	CTRL.Actor_PlaySpeech(ACTOR.American_Major_01, "$08a0ac9c7e6144909909a02d533ce8aa:52");
+	CTRL.WAIT();
+	CTRL.Actor_PlaySpeech(ACTOR.American_Major_01, "$08a0ac9c7e6144909909a02d533ce8aa:53");
+	CTRL.WAIT();
+end
+
+EVENTS.RECON = function()
+	CTRL.Actor_PlaySpeech(ACTOR.American_Major_01, "$08a0ac9c7e6144909909a02d533ce8aa:55");
+	CTRL.WAIT();
+end
+
+EVENTS.AITAKEOVER = function()
+	CTRL.Actor_PlaySpeech(ACTOR.American_Lieutenant_01, "$08a0ac9c7e6144909909a02d533ce8aa:56");
+	CTRL.WAIT();
+end
+
+EVENTS.COMPANYSUPPORT = function()
+	CTRL.Actor_PlaySpeech(ACTOR.American_Major_01, "$08a0ac9c7e6144909909a02d533ce8aa:57");
+	CTRL.WAIT();
+	CTRL.Actor_PlaySpeech(ACTOR.American_Major_01, "$08a0ac9c7e6144909909a02d533ce8aa:58");
+	CTRL.WAIT();
+end
+
+EVENTS.BRIDGECROSS = function()
+	CTRL.Actor_PlaySpeech(ACTOR.American_Major_01, "$08a0ac9c7e6144909909a02d533ce8aa:59");
+	CTRL.WAIT();
+	CTRL.Actor_PlaySpeech(ACTOR.American_Major_01, "$08a0ac9c7e6144909909a02d533ce8aa:60");
+	CTRL.WAIT();
+end
+
+EVENTS.NEWBRIDGE = function()
+	CTRL.Actor_PlaySpeech(ACTOR.American_Major_01, "$08a0ac9c7e6144909909a02d533ce8aa:61");
+	CTRL.WAIT();
+	CTRL.Actor_PlaySpeech(ACTOR.American_Major_01, "$08a0ac9c7e6144909909a02d533ce8aa:62");
+	CTRL.WAIT();
+	Camera_MoveTo(mkr_camera_destination06, true, SLOW_CAMERA_PANNING, false, true);
+	CTRL.Actor_PlaySpeech(ACTOR.American_Major_01, "$08a0ac9c7e6144909909a02d533ce8aa:63");
+	CTRL.WAIT();
+	CTRL.Actor_PlaySpeech(ACTOR.American_Major_01, "$08a0ac9c7e6144909909a02d533ce8aa:64");
+	CTRL.WAIT();
+end
+
+EVENTS.ENGINEERS_PLANE = function()
+	CTRL.Actor_PlaySpeech(ACTOR.American_Riflemen_01, "$08a0ac9c7e6144909909a02d533ce8aa:65");
+	CTRL.WAIT();
+	CTRL.Actor_PlaySpeech(ACTOR.American_Engineer_01, "$08a0ac9c7e6144909909a02d533ce8aa:66");
+	CTRL.WAIT();
+	CTRL.Actor_PlaySpeech(ACTOR.American_Riflemen_01, "$08a0ac9c7e6144909909a02d533ce8aa:67");
+	CTRL.WAIT();
+	CTRL.Actor_PlaySpeech(ACTOR.American_Engineer_01, "$08a0ac9c7e6144909909a02d533ce8aa:68");
+	CTRL.WAIT();
+end
+
+EVENTS.CONVOY_DOWN = function()
+	CTRL.Actor_PlaySpeech(ACTOR.American_Riflemen_01, "$08a0ac9c7e6144909909a02d533ce8aa:71");
+	CTRL.WAIT();
+end
+
+EVENTS.BRIDGE_REPAIRED = function()
+	CTRL.Actor_PlaySpeech(ACTOR.American_Engineer_01, "$08a0ac9c7e6144909909a02d533ce8aa:69");
+	CTRL.WAIT();
+	CTRL.Actor_PlaySpeech(ACTOR.American_Major_01, "$08a0ac9c7e6144909909a02d533ce8aa:70");
+	CTRL.WAIT();
+end
+
+EVENTS.CONVOY_SAFE = function()
+	CTRL.Actor_PlaySpeech(ACTOR.American_Riflemen_01, "$08a0ac9c7e6144909909a02d533ce8aa:72");
+	CTRL.WAIT();
+end
+
+EVENTS.STUG_ENCOUNTER01 = function()
+	CTRL.Actor_PlaySpeech(ACTOR.American_Riflemen_01, "$08a0ac9c7e6144909909a02d533ce8aa:74");
+	CTRL.WAIT();
+end
+
+EVENTS.STUG_ENCOUNTER02 = function()
+	CTRL.Actor_PlaySpeech(ACTOR.American_Riflemen_01, "$08a0ac9c7e6144909909a02d533ce8aa:73");
+	CTRL.WAIT();
+end
+
+EVENTS.PANTHER_ENCOUNTER = function()
+	CTRL.Actor_PlaySpeech(ACTOR.American_Riflemen_01, "$08a0ac9c7e6144909909a02d533ce8aa:75");
+	CTRL.WAIT();
+end
+
+EVENTS.CONVOY_ENGINEOUT = function()
+	CTRL.Actor_PlaySpeech(ACTOR.Russian_Tank_Commander, "$08a0ac9c7e6144909909a02d533ce8aa:76");
+	CTRL.WAIT();
+end
