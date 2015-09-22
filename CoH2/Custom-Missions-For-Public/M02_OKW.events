@@ -1,0 +1,44 @@
+EVENTS = {};
+
+EVENTS.INTRO = function()
+	
+	local sg_player_intro = SGroup_CreateIfNotFound("sg_player_intro");
+	
+	Util_CreateSquads(player1, sg_player_intro, BP_GetSquadBlueprint("jagdpanzer_tank_destroyer_squad_mp"), eg_player_spawner, mkr_intro_reinforce01, 1, nil, true, nil, nil, nil);
+	
+	CTRL.Actor_PlaySpeech(ACTOR.German_Officer, "$08a0ac9c7e6144909909a02d533ce8aa:357");
+	CTRL.WAIT();
+	
+	Util_CreateSquads(player1, sg_player_intro, BP_GetSquadBlueprint("panzer_ii_luchs_squad_mp"), eg_player_spawner, mkr_intro_reinforce02, 1, nil, true, nil, nil, nil);
+	
+	CTRL.Actor_PlaySpeech(ACTOR.German_Officer, "$08a0ac9c7e6144909909a02d533ce8aa:358");
+	CTRL.WAIT();
+	
+	Util_CreateSquads(player1, sg_player_intro, BP_GetSquadBlueprint("panzer_ii_luchs_squad_mp"), eg_player_spawner, mkr_intro_reinforce03, 1, nil, true, nil, nil, nil);
+	
+	CTRL.Actor_PlaySpeech(ACTOR.German_Officer, "$08a0ac9c7e6144909909a02d533ce8aa:359");
+	CTRL.WAIT();
+	
+	Util_CreateSquads(player1, sg_player_intro, BP_GetSquadBlueprint("fallschirmjager_squad_mp"), eg_player_spawner, mkr_intro_reinforce04, 1, nil, true, nil, nil, nil);
+	
+	Mission_Start();
+	
+	Game_SetMode(UI_Normal);
+	Game_EnableInput(true);
+	
+end
+
+EVENTS.ATTACKEDBASE = function()
+	CTRL.Actor_PlaySpeech(ACTOR.German_Officer, "$08a0ac9c7e6144909909a02d533ce8aa:371");
+	CTRL.WAIT();
+end
+
+EVENTS.ATTACKEDBRIDGE = function()
+	CTRL.Actor_PlaySpeech(ACTOR.German_Officer, "$08a0ac9c7e6144909909a02d533ce8aa:372");
+	CTRL.WAIT();
+end
+
+EVENTS.BASEKT = function()
+	CTRL.Actor_PlaySpeech(ACTOR.German_Officer, "$08a0ac9c7e6144909909a02d533ce8aa:370");
+	CTRL.WAIT();
+end
